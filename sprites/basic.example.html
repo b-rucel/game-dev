@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox Layout</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    ul, li {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .top-row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .block {
+      padding: 20px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+    }
+
+    .left-block, .right-block {
+      flex: 1;
+      min-height: 200px;
+    }
+
+    .bottom-block {
+      min-height: 150px;
+      line-height: 1.6;
+    }
+
+    .bottom-block h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+
+    .bottom-block h3 {
+      margin: 2rem 0 1rem;
+      color: #444;
+    }
+
+    .bottom-block p {
+      margin-bottom: .5rem;
+    }
+
+    .bottom-block ul {
+      margin-bottom: .5rem;
+      padding-left: .25rem;
+    }
+
+    .bottom-block ul ul {
+      margin: 0.5rem 0 0.5rem 1.5rem;
+    }
+
+    .bottom-block li {
+      margin-bottom: 0.2rem;
+    }
+
+    .bottom-block pre {
+      background: #f8f8f8;
+      padding: 1rem;
+      border-radius: 4px;
+      margin: 1rem 0;
+      overflow-x: auto;
+    }
+
+    .bottom-block code {
+      font-family: monospace;
+      font-size: 0.9em;
+      color: #444;
+    }
+
+    #navlist {
+      flex: 0 0 400px;
+      display: flex;
+      /* flex-direction: column; */
+      gap: 20px;
+      padding: 20px;
+      /* background-color: #f5f5f5; */
+      border-radius: 8px;
+      /* height: 200px; */
+    }
+
+    #navlist li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+    }
+
+    #navlist li, #navlist a {
+      height: 44px;
+      display: block;
+    }
+
+    #home {
+      width: 46px;
+      background: url('./img_navsprites_hover.gif') 0 0;
+    }
+
+    #prev {
+      width: 43px;
+      background: url('./img_navsprites_hover.gif') -47px 0;
+    }
+
+    #next {
+      width: 43px;
+      background: url('./img_navsprites_hover.gif') -91px 0;
+    }
+
+    #home a:hover {
+      background: url('img_navsprites_hover.gif') 0 -45px;
+    }
+
+    #prev a:hover {
+      background: url('img_navsprites_hover.gif') -47px -45px;
+    }
+
+    #next a:hover {
+      background: url('img_navsprites_hover.gif') -91px -45px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-row">
+      <div class="block left-block">
+        <ul id="navlist">
+          <li id="home"><a href="default.asp"></a></li>
+          <li id="prev"><a href="css_intro.asp"></a></li>
+          <li id="next"><a href="css_syntax.asp"></a></li>
+        </ul>
+      </div>
+      <div class="block right-block">
+        <img src="./img_navsprites_hover.gif" alt="Sprite Preview" />
+      </div>
+    </div>
+    <div class="block bottom-block">
+      <h2>CSS Sprite Navigation Example</h2>
+      <p>This example demonstrates a two-column layout with:</p>
+      <ul>
+        <li><strong>Left Column:</strong> Navigation buttons using CSS sprites for hover effects</li>
+        <li><strong>Right Column:</strong> Preview of the sprite image showing all button states</li>
+      </ul>
+      <h3>How it works:</h3>
+      <ul>
+        <li>The navigation buttons use different sections of a single sprite image</li>
+        <li>Each button has a normal state (top row) and hover state (bottom row)</li>
+        <li>The background position changes on hover to show different parts of the sprite</li>
+        <li>Using sprites reduces HTTP requests and improves page load time</li>
+      </ul>
+      <p>Try hovering over the navigation buttons to see the sprite animation in action.</p>
+      <h3>How Sprite Masking Works:</h3>
+      <ul>
+        <li>Each button (like the home button) is created by:</li>
+        <ul>
+          <li>Setting a fixed width (46px) to show only one icon</li>
+          <li>Using background-position (0 0) to select which part of sprite to show</li>
+          <li>The rest of the sprite sheet is hidden outside the button's width</li>
+        </ul>
+        <li>Example CSS for home button:</li>
+        <pre><code>#home {
+  width: 46px;  /* Only shows 46px width of the sprite */
+  background: url('./img_navsprites_hover.gif') 0 0;  /* Starts at left edge (0 0) */
+}</code></pre>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
