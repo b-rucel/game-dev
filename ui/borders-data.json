@@ -1,0 +1,55 @@
+{
+  "frames": {
+    "border-001": {
+      "frame": {"x": 0, "y": 0, "w": 64, "h": 64},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+      "sourceSize": {"w": 64, "h": 64}
+    },
+    "border-002": {
+      "frame": {"x": 64, "y": 0, "w": 64, "h": 64},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+      "sourceSize": {"w": 64, "h": 64}
+    },
+    "border-003": {
+      "frame": {"x": 128, "y": 0, "w": 64, "h": 64},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+      "sourceSize": {"w": 64, "h": 64}
+    },
+    "border-large-001": {
+      "frame": {"x": 0, "y": 128, "w": 64, "h": 64},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+      "sourceSize": {"w": 64, "h": 64}
+    },
+    "border-square-001": {
+      "frame": {"x": 0, "y": 192, "w": 64, "h": 64},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 64, "h": 64},
+      "sourceSize": {"w": 64, "h": 64}
+    },
+    "divider-001": {
+      "frame": {"x": 0, "y": 512, "w": 128, "h": 32},
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {"x": 0, "y": 0, "w": 128, "h": 32},
+      "sourceSize": {"w": 128, "h": 32}
+    }
+  },
+  "meta": {
+    "app": "Kenney Fantasy UI Borders",
+    "version": "1.0",
+    "image": "fantasy-ui-borders.svg",
+    "format": "SVG",
+    "size": {"w": 512, "h": 576},
+    "scale": "1",
+    "gridSize": 64
+  }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game UI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: #1a202c;
+    }
+    
+    @font-face {
+      font-family: 'Aoboshi One';
+      src: url('https://fonts.googleapis.com/css2?family=Aoboshi+One&display=swap');
+    }
+
+    .border-frame {
+      position: relative;
+      background-image: url('kenney_fantasy-ui-borders/Vector/panel-border-001.svg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      padding: 2rem;
+    }
+
+    .button-frame {
+      position: relative;
+      background-image: url('kenney_fantasy-ui-borders/Vector/button-border-000.svg');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      padding: 1rem 2rem;
+    }
+
+    
+  </style>
+</head>
+<body>
+  <div id="app" class="min-h-screen flex items-center justify-center p-4">
+    <div class="max-w-4xl w-full space-y-6">
+      <!-- Quest Panel -->
+      <div class="bg-gray-900 border-2 border-gray-700 rounded-lg p-6 text-center">
+        <h2 class="text-green-300 text-2xl mb-4">Quest</h2>
+        <p class="text-gray-200 mb-6">Gather moon apples in the orchard, guarded by wolves.<br/>Return for a bountiful reward!</p>
+        <button class="bg-gray-800 text-white px-8 py-2 border-2 border-gray-600 rounded hover:bg-gray-700">
+          Accept quest
+        </button>
+      </div>
+
+      <!-- Inventory and Location Section -->
+      <div class="flex justify-between items-start">
+        <!-- Inventory -->
+        <div class="bg-gray-900 border-2 border-gray-700 rounded-lg p-4">
+          <div class="flex gap-4">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-800 border-2 border-gray-600 rounded-lg flex items-center justify-center">
+                <span class="text-gray-200">🗡️</span>
+              </div>
+              <span class="text-gray-200">3</span>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-800 border-2 border-gray-600 rounded-lg flex items-center justify-center">
+                <span class="text-gray-200">📖</span>
+              </div>
+              <span class="text-gray-200">0</span>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gray-800 border-2 border-gray-600 rounded-lg flex items-center justify-center">
+                <span class="text-gray-200">👑</span>
+              </div>
+              <span class="text-gray-200">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Location Discovery -->
+        <div class="text-center">
+          <p class="text-gray-400 text-sm">Location discovered</p>
+          <h3 class="text-gray-200 text-xl">Mystic Vale</h3>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex flex-col items-center gap-2">
+        <button class="bg-gray-800 text-white px-8 py-2 border-2 border-gray-600 rounded w-48 hover:bg-gray-700">
+          Continue
+        </button>
+        <button class="bg-gray-800 text-white px-8 py-2 border-2 border-gray-600 rounded w-48 hover:bg-gray-700">
+          New game
+        </button>
+        <button class="bg-gray-800 text-white px-8 py-2 border-2 border-gray-600 rounded w-48 hover:bg-gray-700">
+          Options
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
