@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Sprite Animation</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#gameCanvas {
+  border: 1px solid black;
+  background-color: #f0f0f0;
+}
+
+/* Add these styles to your existing CSS */
+.content {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  line-height: 1.6;
+  grid-column: 1 / -1;  /* Make content span full width below canvas */
+}
+
+.content h1 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.content ul {
+  list-style: none;
+}
+
+.content p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.content pre {
+  background: #f8f8f8;
+  padding: 1rem;
+  border-radius: 6px;
+  margin: 1rem 0;
+  overflow-x: auto;
+}
+
+.content code {
+  font-family: Monaco, monospace;
+  font-size: 0.9em;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <canvas id="gameCanvas"></canvas>
+
+    <div class="content">
+      <h1>Sprite Animation Example</h1>
+      <p>This example demonstrates how to create a simple sprite animation using JavaScript and HTML5 Canvas.</p>
+      
+      <h2>How It Works</h2>
+      <ul>
+        <li>The sprite sheet contains 6 frames (3 columns × 2 rows)</li>
+        <li>Frames 0-2: Walking right animation</li>
+        <li>Frames 3-5: Walking left animation</li>
+      </ul>
+
+      <h2>Animation Details</h2>
+<pre><code>sprite.addAnimation({
+    name: 'walkright',
+    frameIndices: [0,1,2,1]  // Walking cycle sequence
+});</code></pre>
+
+      <h2>Controls</h2>
+      <ul>
+        <li>The sprite automatically walks back and forth</li>
+        <li>Collision detection prevents the sprite from walking off-screen</li>
+        <li>Animation smoothly transitions when changing directions</li>
+      </ul>
+
+      <p>Watch how the sprite's animation changes direction when it hits the canvas boundaries!</p>
+    </div>
+  </div>
+<script>
+// Canvas setup helper functions
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+function setupCanvas() {
+    canvas.width = 1200;  // or any desired width
+    canvas.height = 400; // or any desired height
+    canvas.style.border = '1px solid black';
+}
+
+function getWidth() {
+    return canvas.width;
+}
+
+function getHeight() {
+    return canvas.height;
+}
+
+// WebImage replacement class
+class WebImage {
+  constructor(src) {
+    this.width = 0;
+    this.height = 0;
+    this.x = 0;
+    this.y = 0;
+    this.imageData = null;
+  }
+
+  setPosition(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  move(dx, dy) {
+    this.x += dx;
+    this.y += dy;
+  }
+
+  setImageData(imageData) {
+    this.imageData = imageData;
+  }
+
+  draw() {
+    if (this.imageData) {
+      ctx.putImageData(this.imageData, this.x - this.width/2, this.y - this.height/2);
+    }
+  }
+}
+
+// Copy this to your code to use the Sprite class.
+// Example at the bottom!
+var Sprite = (function() {
+  function Sprite(options) {
+    options = Object.assign({
+      spriteSheetURL: 'https://codehs.com/uploads/72e9b6f60ac412f32a2fd3a955990c3b',
+      spriteWidth: 114,
+      spriteHeight: 115,
+      nRows: 2,
+      nCols: 3,
+      borderWidth: 1,
+      spacingWidth: 1,
+      scale: 5,
+      x: 0,
+      y: 0,
+    }, options);
+    this.x = options.x;
+    this.y = options.y;
+    this.frames = [];
+    this.animations = {};
+    this.activeAnimationStep = 0;
+    this.spriteWidth = options.spriteWidth;
+    this.spriteHeight = options.spriteHeight;
+    this.nRows = options.nRows;
+    this.nCols = options.nCols;
+    this.borderWidth = options.borderWidth;
+    this.spacingWidth = options.spacingWidth;
+    this.scale = options.scale;
+    this.canvas = document.createElement('canvas');
+    this.canvas.width = this.spriteWidth * this.scale;
+    this.canvas.height = this.spriteHeight * this.scale;
+    this.canvas.style.display = 'none';
+    document.body.appendChild(this.canvas);
+
+    this.context = this.canvas.getContext('2d');
+    this.context.imageSmoothingEnabled = false;
+    this.context.scale(this.scale, this.scale);
+
+    var spriteSheetImage = new Image();
+    spriteSheetImage.src = options.spriteSheetURL;
+    spriteSheetImage.crossOrigin = true;
+
+    spriteSheetImage.onload = (function() {
+      for (var row = 0; row < this.nRows; row++) {
+        for (var col = 0; col < this.nCols; col++) {
+          var spriteWebImage = new WebImage('');
+          spriteWebImage.width = this.spriteWidth * this.scale;
+          spriteWebImage.height = this.spriteHeight * this.scale;
+          spriteWebImage.setPosition(getWidth()/2, getHeight()/2);
+          this.context.clearRect(
+            0,
+            0,
+            this.canvas.width,
+            this.canvas.height
+          );
+
+          var sourceImagePosition = this.spritePositionToImagePosition(row, col);
+
+          this.context.drawImage(
+            spriteSheetImage,
+            sourceImagePosition.x,
+            sourceImagePosition.y,
+            this.spriteWidth,
+            this.spriteHeight,
+            0,
+            0,
+            this.spriteWidth,
+            this.spriteHeight
+          );
+          spriteWebImage.setImageData(this.context.getImageData(
+            0,
+            0,
+            this.spriteWidth * this.scale,
+            this.spriteHeight * this.scale
+          ));
+          this.frames.push(spriteWebImage);
+        }
+      }
+
+      this.activeFrame = this.frames[0];
+      this.ready();
+    }).bind(this);
+  };
+
+  Sprite.prototype.ready = function() {
+    if (typeof this.ready === 'function') {
+      this.onReady(this);
+    }
+  };
+
+  Sprite.prototype.onReady = function(handler) {
+    this.onReady = handler;
+  };
+
+  Sprite.prototype.spritePositionToImagePosition = function(row, col) {
+    return {
+      x: (
+        this.borderWidth +
+        col * (this.spacingWidth + this.spriteWidth)
+      ),
+      y: (
+        this.borderWidth +
+        row * (this.spacingWidth + this.spriteHeight)
+      )
+    }
+  };
+
+  Sprite.prototype.draw = function() {
+    this.activeFrame.draw.apply(this.activeFrame, arguments);
+  };
+
+  Sprite.prototype.setPosition = function(x, y) {
+    this.x = x;
+    this.y = y;
+    this.activeFrame.setPosition.apply(this.activeFrame, arguments);
+  };
+
+  Sprite.prototype.move = function(dx, dy) {
+    this.x += dx;
+    this.y += dy;
+    this.activeFrame.move.apply(this.activeFrame, arguments);
+  };
+
+  Sprite.prototype.addAnimation = function(options) {
+    options = Object.assign({
+      name: 'idle',
+      frameIndices: [0],
+      timePerFrame: 250,
+      onEnd: 'repeat'
+    }, options);
+    this.animations[options.name] = {
+      frameIndices: options.frameIndices,
+      timePerFrame: options.timePerFrame,
+      onEnd: options.onEnd
+    };
+  };
+
+  Sprite.prototype.animate = function(animationName, smoothStep) {
+    var animation = this.animations[animationName];
+    if (animation === undefined) {
+        return;
+    }
+    this.activeAnimation = animation;
+    this.activeAnimationStep = (
+        smoothStep &&
+        this.activeAnimationStep < this.activeAnimation.frameIndices.length
+    ) ? this.activeAnimationStep : 0;
+    var frameIndex = animation.frameIndices[this.activeAnimationStep];
+    this.clearAnimation();
+    this.advanceFrame();
+    this.activeAnimationID = setInterval((function() {
+        this.advanceFrame();
+    }).bind(this), animation.timePerFrame);
+  };
+
+  Sprite.prototype.advanceFrame = function() {
+    if (this.activeAnimationStep >= this.activeAnimation.frameIndices.length) {
+      if (this.activeAnimation.onEnd === 'repeat') {
+        this.activeAnimationStep = 0;
+      } else {
+        this.clearAnimation();
+      }
+    }
+    var frameIndex = this.activeAnimation.frameIndices[
+      this.activeAnimationStep
+    ];
+    var frame = this.frames[frameIndex];
+    frame.x = this.x;
+    frame.y = this.y;
+    this.activeFrame = frame;
+    this.activeAnimationStep += 1;
+  }
+
+  Sprite.prototype.clearAnimation = function() {
+    clearInterval(this.activeAnimationID);
+    this.activeAnimationID = -1;
+  }
+
+  return Sprite;
+})();
+
+setupCanvas();
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+var sprite = new Sprite({
+  spriteSheetURL: 'https://codehs.com/uploads/72e9b6f60ac412f32a2fd3a955990c3b',
+  nRows: 2,
+  nCols: 3,
+  spriteWidth: 13,
+  spriteHeight: 14,
+  borderWidth: 1,
+  spacingWidth: 1,
+  x: getWidth()/2,
+  y: getHeight()/2
+});
+
+sprite.onReady(function() {
+  sprite.addAnimation({
+    name: 'walkright',
+    frameIndices: [0,1,2,1]
+  });
+  sprite.addAnimation({
+    name: 'walkleft',
+    frameIndices: [3,4,5,4]
+  });
+
+  startLoop();
+});
+
+function startLoop() {
+  var velocity = 1;
+  sprite.animate('walkright');
+
+  setInterval(function() {
+    clearCanvas();
+
+    // right wall collision
+    if (sprite.activeFrame.x + (sprite.activeFrame.width/2) >= getWidth()) {
+        velocity = -1;
+        sprite.animate('walkleft', true);
+    }
+
+    // left wall collision
+    if (sprite.activeFrame.x - (sprite.activeFrame.width/2) <= 0) {
+        velocity = 1;
+        sprite.animate('walkright', true);
+    }
+
+    sprite.move(velocity, 0);
+    sprite.draw();
+  }, 10);
+}
+</script>
+</body>
+</html>
