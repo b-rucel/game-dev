@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScript Sprite Navigation</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sprite-nav {
+  padding: 20px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  display: flex;
+  gap: 20px;
+}
+
+.sprite-button {
+  width: 43px;
+  height: 44px;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  background-image: url('./img_navsprites_hover.gif');
+}
+
+.sprite-preview {
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+}
+
+.content {
+  grid-column: 1 / -1;
+  padding: 30px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  line-height: 1.6;
+}
+
+.content h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.8em;
+}
+
+.content h3 {
+  margin: 2rem 0 1rem;
+  color: #444;
+  font-size: 1.4em;
+}
+
+.content p {
+  margin-bottom: .2rem;
+  color: #555;
+}
+
+.content ul {
+  margin-bottom: .25rem;
+  padding-left: 1.25rem;
+  list-style: none;
+}
+
+.content ul ul {
+  margin: 0.75rem 0 0.75rem 1.5rem;
+}
+
+.content li {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.content pre {
+  background: #f8f8f8;
+  padding: .5rem;
+  border-radius: 8px;
+  margin-bottom: 1.25rem;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="sprite-nav">
+      <button class="sprite-button" data-sprite="home"></button>
+      <button class="sprite-button" data-sprite="prev"></button>
+      <button class="sprite-button" data-sprite="next"></button>
+    </div>
+    <div class="sprite-preview">
+      <img src="./img_navsprites_hover.gif" alt="Sprite Preview">
+    </div>
+    <div class="content">
+      <h2>JavaScript Sprite Navigation</h2>
+      <p>This example demonstrates a sprite-based navigation system using JavaScript to handle state changes and animations.</p>
+      
+      <h3>Key Components:</h3>
+      <ul>
+        <li><strong>Sprite Configuration:</strong> Sprite positions are stored in a JavaScript object</li>
+        <li><strong>Event Handling:</strong> Mouse events control sprite state changes</li>
+        <li><strong>Dynamic Positioning:</strong> Background positions are updated via JavaScript</li>
+      </ul>
+
+      <h3>How It Works:</h3>
+      <ul>
+        <li>Sprite positions are defined in a configuration object:</li>
+        <pre><code>const spritePositions = {
+  home: { normal: '0 0', hover: '0 -45px' },
+  prev: { normal: '-47px 0', hover: '-47px -45px' },
+  next: { normal: '-91px 0', hover: '-91px -45px' }
+};</code></pre>
+
+        <li>Each button uses data attributes to identify its sprite type:</li>
+        <pre><code>&lt;button class="sprite-button" data-sprite="home"&gt;&lt;/button&gt;</code></pre>
+
+        <li>JavaScript listeners handle state changes:</li>
+        <ul>
+          <li>mouseenter: Changes to hover state</li>
+          <li>mouseleave: Returns to normal state</li>
+          <li>click: Triggers navigation action</li>
+        </ul>
+
+        <li>Background positions are changed dynamically:</li>
+        <pre><code>button.style.backgroundPosition = positions.hover;</code></pre>
+      </ul>
+
+      <h3>Advantages of JavaScript Implementation:</h3>
+      <ul>
+        <li>More flexible than CSS-only approach</li>
+        <li>Easier to modify sprite positions programmatically</li>
+        <li>Can add complex interactions and animations</li>
+        <li>Better separation of concerns (structure, style, behavior)</li>
+      </ul>
+
+      <p>Try hovering over the navigation buttons to see the JavaScript-powered sprite animations in action.</p>
+    </div>
+  </div>
+
+<script>
+  const spritePositions = {
+    home: { normal: '0 0', hover: '0 -45px' },
+    prev: { normal: '-47px 0', hover: '-47px -45px' },
+    next: { normal: '-91px 0', hover: '-91px -45px' }
+  };
+
+  document.querySelectorAll('.sprite-button').forEach(button => {
+    const spriteType = button.dataset.sprite;
+    const positions = spritePositions[spriteType];
+
+    // Set initial background position
+    button.style.backgroundPosition = positions.normal;
+
+    button.addEventListener('mouseenter', () => {
+      button.style.backgroundPosition = positions.hover;
+    });
+
+    button.addEventListener('mouseleave', () => {
+      button.style.backgroundPosition = positions.normal;
+    });
+
+    button.addEventListener('click', () => {
+      console.log(`${spriteType} button clicked`);
+        // Add your navigation logic here
+    });
+  });
+</script>
+</body>
+</html>
