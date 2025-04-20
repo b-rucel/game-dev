@@ -1,0 +1,47 @@
+h1 {
+  text-align: center;
+}
+
+body {
+  background: #111;
+  color: #f8f8f8;
+}
+
+canvas {
+  background: #f8f8f8;
+  padding: 0;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+.buttons {
+  padding: 1rem;
+  list-style: none;
+}
+
+.button {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  background: #222;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.button.pressed {
+  background: #333;
+  transform: scale(1.1);
+}
+
+.axes {
+  padding: 1rem;
+}
+
+.axis {
+  display: block;
+  width: 200px;
+  margin: 0.5rem;
+}
