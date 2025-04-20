@@ -32,15 +32,18 @@
   let loopStarted = false;
 
   window.addEventListener("gamepadconnected", (evt) => {
+    console.log(evt.gamepad);
+    console.log("Gamepad connected at index %d: %s. %d buttons, %d axes.",
+      evt.gamepad.index, evt.gamepad.id,
+      evt.gamepad.buttons.length, evt.gamepad.axes.length);
     addGamepad(evt.gamepad);
   });
+
   window.addEventListener("gamepaddisconnected", (evt) => {
     removeGamepad(evt.gamepad);
   });
 
   function addGamepad(gamepad) {
-    console.log('------ addGamepad');
-
     // main container div for the gamepad UI
     const d = document.createElement("div");
     d.setAttribute("id", `controller${gamepad.index}`);
