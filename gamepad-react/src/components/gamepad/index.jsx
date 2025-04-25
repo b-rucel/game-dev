@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import controller from './xbox.svg'
 
 export default function Gamepad() {
   const [gamepad, setGamepad] = useState(null)
@@ -97,22 +98,75 @@ export default function Gamepad() {
 
   return (
     <div className="space-y-4">
-      <div>
-        <p>Gamepad: {gamepad ? gamepad.id : 'None'}</p>
-        <p>Controller Type: {controllerType}</p>
-      </div>
-
-      {buttonStates.length > 0 && (
-        <div className="grid grid-cols-4 gap-4">
-          {buttonStates.map((pressed, index) => (
-            <div
-              key={index}
-              className={`p-4 rounded border ${pressed ? 'bg-primary text-primary-foreground' : 'bg-background'}`}
-            >
-              {getButtonLabel(index)}
+      {!gamepad ? (
+        <div className="p-4 text-center border rounded-lg bg-muted/5">
+          <div className="p-8 flex flex-col items-center justify-center space-y-4 bg-[#caf0f8] rounded-lg dark:bg-gray-700">
+            <img 
+              src={controller} 
+              className="w-36 h-36 mx-auto animate-pulse relative transform translate-y-0 drop-shadow-[0_20px_20px_rgba(0,0,0,0.45)]" 
+            />
+            <h2 className="text-2xl font-semibold text-foreground">No Controller Connected</h2>
+            <p className="text-muted-foreground max-w-sm">
+              Connect your gamepad and press any button to start testing. Supports PlayStation and Xbox controllers.
+            </p>
+            <div className="flex gap-4 mt-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <svg
+                  className="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>Turn on controller</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <svg
+                  className="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+                  />
+                </svg>
+                <span>Press any button</span>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
+      ) : (
+        <>
+          <div>
+            <p>Gamepad: {gamepad.id}</p>
+            <p>Controller Type: {controllerType}</p>
+          </div>
+
+          {buttonStates.length > 0 && (
+            <div className="grid grid-cols-4 gap-4">
+              {buttonStates.map((pressed, index) => (
+                <div
+                  key={index}
+                  className={`p-4 rounded border ${pressed ? 'bg-primary text-primary-foreground' : 'bg-background'}`}
+                >
+                  {getButtonLabel(index)}
+                </div>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   )
