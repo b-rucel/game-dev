@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <circle cx="35" cy="35" r="35" fill="#000000"/>
+    <circle cx="35" cy="35" r="28" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+    <text x="35" 
+          y="38" 
+          dominant-baseline="middle" 
+          text-anchor="middle" 
+          fill="#FFFFFF" 
+          font-family="Arial, sans-serif" 
+          font-size="35px" 
+          font-weight="bold">L</text>
+  </g>
+</svg>

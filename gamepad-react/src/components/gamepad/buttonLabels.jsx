@@ -1,4 +1,15 @@
 import a_btn from './xbox.buttons/a.svg'
+import b_btn from './xbox.buttons/b.svg'
+import y_btn from './xbox.buttons/y.svg'
+import x_btn from './xbox.buttons/x.svg'
+import rt_btn from './xbox.buttons/rt.svg'
+import lt_btn from './xbox.buttons/lt.svg'
+import rb_btn from './xbox.buttons/rb.svg'
+import lb_btn from './xbox.buttons/lb.svg'
+import ls_btn from './xbox.buttons/ls_btn.svg'
+import rs_btn from './xbox.buttons/rs_btn.svg'
+import view_btn from './xbox.buttons/view.svg'
+import menu_btn from './xbox.buttons/menu.svg'
 import xbox_btn from './xbox.buttons/xbox.svg'
 
 const XboxButtonLabels = {
@@ -7,17 +18,61 @@ const XboxButtonLabels = {
       <img src={a_btn} alt="A" className="w-8 h-8" />
     </div>
   ),
-  1: () => 'B',
-  2: () => 'X',
-  3: () => 'Y',
-  4: () => 'LB',
-  5: () => 'RB',
-  6: () => 'LT',
-  7: () => 'RT',
-  8: () => 'View',
-  9: () => 'Menu',
-  10: () => 'LS',
-  11: () => 'RS',
+  1: () => (
+    <div className="flex items-center justify-center">
+      <img src={b_btn} alt="B" className="w-8 h-8" />
+    </div>
+  ),
+  2: () => (
+    <div className="flex items-center justify-center">
+      <img src={x_btn} alt="X" className="w-8 h-8" />
+    </div>
+  ),
+  3: () => (
+    <div className="flex items-center justify-center">
+      <img src={y_btn} alt="Y" className="w-8 h-8" />
+    </div>
+  ),
+  4: () => (
+    <div className="flex items-center justify-center">
+      <img src={lb_btn} alt="LB" className="w-12 h-12" />
+    </div>
+  ),
+  5: () => (
+    <div className="flex items-center justify-center">
+      <img src={rb_btn} alt="RB" className="w-12 h-12" />
+    </div>
+  ),
+  6: () => (
+    <div className="flex items-center justify-center">
+      <img src={lt_btn} alt="LT" className="w-8 h-8" />
+    </div>
+  ),
+  7: () => (
+    <div className="flex items-center justify-center">
+      <img src={rt_btn} alt="RT" className="w-8 h-8" />
+    </div>
+  ),
+  8: () => (
+    <div className="flex items-center justify-center">
+      <img src={view_btn} alt="View" className="w-8 h-8" />
+    </div>
+  ),
+  9: () => (
+    <div className="flex items-center justify-center">
+      <img src={menu_btn} alt="Menu" className="w-8 h-8" />
+    </div>
+  ),
+  10: () => (
+    <div className="flex items-center justify-center">
+      <img src={ls_btn} alt="LS" className="w-8 h-8" />
+    </div>
+  ),
+  11: () => (
+    <div className="flex items-center justify-center">
+      <img src={rs_btn} alt="RS" className="w-8 h-8" />
+    </div>
+  ),
   12: () => '⬆️',
   13: () => '⬇️',
   14: () => '⬅️',
