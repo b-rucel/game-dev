@@ -89,7 +89,7 @@ export default function Gamepad() {
     <div
       key={index}
       className={`p-4 rounded-lg border transition-colors duration-100 ${
-        pressed ? 'bg-[#caf0f8] text-primary-foreground shadow-lg scale-95' 
+        pressed ? 'bg-[#caf0f8] text-primary-foreground shadow-lg scale-95'
                : 'bg-background hover:bg-muted/5'
       }`}
     >
@@ -112,7 +112,7 @@ export default function Gamepad() {
     }
 
     return (
-      <div className="w-full max-w-[14rem] aspect-square relative rounded-full border-2 border-gray-300 mb-4">
+      <div className="w-full max-w-[14rem] aspect-square relative rounded-full border-2 border-[#caf0f8] mb-4">
       {/* Add center point marker */}
       <div
         className="w-1 h-1 absolute bg-gray-400 rounded-full"
@@ -124,21 +124,21 @@ export default function Gamepad() {
       />
       {/* Stick indicator */}
       <div
-        className="w-20 h-20 absolute rounded-full shadow-lg transition-all duration-75" // Increased from w-8 h-8
+        className="w-20 h-20 absolute rounded-full shadow-lg transition-all duration-75"
         style={{
           left: stickPosition.left,
           top: stickPosition.top,
           transform: 'translate(-50%, -50%)'
         }}
       >
-      <img 
-        src={name === 'Left Stick' ? ls : rs} 
+      <img
+        src={name === 'Left Stick' ? ls : rs}
         alt={name}
-        className="object-cover" // Use object-cover and fixed dimensions
+        className="object-cover"
       />
       </div>
-      <div className="mt-4 absolute -bottom-12 w-full text-center text-sm text-gray-600">
-        {name} (x: {values.x}, y: {values.y})
+      <div className="absolute -bottom-8 w-full text-center text-sm text-gray-200">
+        (x: {values.x}, y: {values.y})
       </div>
       </div>
     )
@@ -147,6 +147,7 @@ export default function Gamepad() {
   return (
     <div className="lg:block space-y-4">
       {!gamepad ? (
+        /* unconnected */
         <div className="p-4 text-center border rounded-lg bg-muted/5">
           <div className="p-8 flex flex-col items-center justify-center space-y-4 bg-[#caf0f8] rounded-lg dark:bg-gray-700">
             <img
@@ -199,6 +200,7 @@ export default function Gamepad() {
           </div>
         </div>
       ) : (
+        /* connected */
         <div className="space-y-6">
           <div className="p-6 rounded-lg bg-gradient-to-br from-muted/5 to-muted/10 border border-primary/10 backdrop-blur-sm shadow-lg transition-all duration-300 hover:shadow-primary/5">
             <div className="flex items-center justify-between flex-col md:flex-row">
@@ -247,8 +249,8 @@ export default function Gamepad() {
 
           <div className="p-6 rounded-lg bg-muted/5 border">
             <h3 className="text-lg font-medium mb-4">Analog Sticks</h3>
-            {/* Use grid to ensure sticks take up equal space and scale */}
-            <div className="grid grid-cols-2 gap-4 md:gap-8">
+
+            <div className="flex justify-between gap-4 md:gap-8">
               {renderAnalogStick('Left Stick', analogSticks.leftStick)}
               {renderAnalogStick('Right Stick', analogSticks.rightStick)}
             </div>
