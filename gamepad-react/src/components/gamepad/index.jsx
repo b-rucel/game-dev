@@ -3,6 +3,10 @@ import controller from './xbox.svg'
 import './styles.css'
 import { getButtonLabel } from './buttonLabels'
 
+import ls from './xbox.buttons/ls.webp'
+import rs from './xbox.buttons/rs.webp'
+
+
 export default function Gamepad() {
   const [gamepad, setGamepad] = useState(null)
   const [controllerType, setControllerType] = useState(null)
@@ -108,28 +112,34 @@ export default function Gamepad() {
     }
 
     return (
-      <div className="w-48 h-48 relative rounded-full border-2 border-gray-300 mb-4">
-        {/* Add center point marker */}
-        <div
-          className="w-1 h-1 absolute bg-gray-400 rounded-full"
-          style={{
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
-        {/* Stick indicator */}
-        <div
-          className="w-8 h-8 absolute bg-sky-500 rounded-full shadow-lg transition-all duration-75"
-          style={{
-            left: stickPosition.left,
-            top: stickPosition.top,
-            transform: 'translate(-50%, -50%)'
-          }}
-        />
-        <div className="mt-4 absolute -bottom-12 w-full text-center text-sm text-gray-600">
-          {name} (x: {values.x}, y: {values.y})
-        </div>
+      <div className="w-full max-w-[14rem] aspect-square relative rounded-full border-2 border-gray-300 mb-4">
+      {/* Add center point marker */}
+      <div
+        className="w-1 h-1 absolute bg-gray-400 rounded-full"
+        style={{
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)'
+        }}
+      />
+      {/* Stick indicator */}
+      <div
+        className="w-20 h-20 absolute rounded-full shadow-lg transition-all duration-75" // Increased from w-8 h-8
+        style={{
+          left: stickPosition.left,
+          top: stickPosition.top,
+          transform: 'translate(-50%, -50%)'
+        }}
+      >
+      <img 
+        src={name === 'Left Stick' ? ls : rs} 
+        alt={name}
+        className="object-cover" // Use object-cover and fixed dimensions
+      />
+      </div>
+      <div className="mt-4 absolute -bottom-12 w-full text-center text-sm text-gray-600">
+        {name} (x: {values.x}, y: {values.y})
+      </div>
       </div>
     )
   }
@@ -237,7 +247,8 @@ export default function Gamepad() {
 
           <div className="p-6 rounded-lg bg-muted/5 border">
             <h3 className="text-lg font-medium mb-4">Analog Sticks</h3>
-            <div className="flex gap-4 justify-between">
+            {/* Use grid to ensure sticks take up equal space and scale */}
+            <div className="grid grid-cols-2 gap-4 md:gap-8">
               {renderAnalogStick('Left Stick', analogSticks.leftStick)}
               {renderAnalogStick('Right Stick', analogSticks.rightStick)}
             </div>

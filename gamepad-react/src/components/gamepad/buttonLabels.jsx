@@ -12,6 +12,9 @@ import view_btn from './xbox.buttons/view.svg'
 import menu_btn from './xbox.buttons/menu.svg'
 import xbox_btn from './xbox.buttons/xbox.svg'
 
+import ls from './xbox.buttons/ls.webp'
+import rs from './xbox.buttons/rs.webp'
+
 const XboxButtonLabels = {
   0: () => (
     <div className="flex items-center justify-center">
@@ -65,12 +68,12 @@ const XboxButtonLabels = {
   ),
   10: () => (
     <div className="flex items-center justify-center">
-      <img src={ls_btn} alt="LS" className="w-8 h-8" />
+      <img src={ls} alt="LS" className="w-12 h-12" />
     </div>
   ),
   11: () => (
     <div className="flex items-center justify-center">
-      <img src={rs_btn} alt="RS" className="w-8 h-8" />
+      <img src={rs} alt="RS" className="w-12 h-12" />
     </div>
   ),
   12: () => '⬆️',
