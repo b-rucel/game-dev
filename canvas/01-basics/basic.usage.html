@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Basics</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+
+    .canvas-container {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: white;
+      padding: 20px;
+    }
+
+    canvas {
+      border: 1px solid #ddd;
+      display: block;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas-container">
+    <h1>Canvas Basics</h1>
+    <canvas id="myCanvas" width="600" height="400"></canvas>
+  </div>
+
+  <script>
+    // get the canvas element and its context
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // set background color
+    ctx.fillStyle = '#e8e8e8';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // draw a simple shape
+    ctx.beginPath();
+    ctx.arc(300, 200, 100, 0, Math.PI * 2);
+    ctx.fillStyle = '#4285f4';
+    ctx.fill();
+
+    // add some text
+    ctx.font = '24px Helvetica';
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.fillText('Canvas Demo', 300, 205);
+  </script>
+</body>
+</html>
