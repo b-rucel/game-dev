@@ -1,7 +1,5 @@
 const canvas = document.getElementById("drawing");
 const ctx = canvas.getContext("2d");
-console.log(canvas);
-console.log(ctx);
 
 ctx.translate(250, 350);
 ctx.scale(1, -1);
