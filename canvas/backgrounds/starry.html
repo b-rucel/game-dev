@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Basic Canvas - Shapes</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0px;
+    }
+  </style>
+  <body>
+  <canvas id="shapes" width="500" height="350"></canvas>
+<script>
+const canvas = document.getElementById("shapes");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// Create a fancy background gradient
+const bgGradient = ctx.createRadialGradient(
+  canvas.width / 2,
+  canvas.height / 2,
+  10,
+  canvas.width / 2,
+  canvas.height / 2,
+  canvas.width / 1.5,
+);
+bgGradient.addColorStop(0, "#1a1c2c");
+bgGradient.addColorStop(0.4, "#29153d");
+bgGradient.addColorStop(1, "#1a1c2c");
+
+// Fill background
+ctx.fillStyle = bgGradient;
+ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// Add some ambient particles
+for (let i = 0; i < 250; i++) {
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
+  const radius = Math.random() * 2;
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.5})`;
+  ctx.fill();
+}
+</script>
+  </body>
+</html>
