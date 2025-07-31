@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Basic Canvas - Shapes</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0px;
+    }
+  </style>
+  <body>
+  <canvas id="shapes" width="500" height="350"></canvas>
+<script>
+const canvas = document.getElementById("shapes");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+// linear gradient
+// The start gradient point is at x=0, y=0
+// The end gradient point is at x=window.innerWidth, y=0
+const gradient = ctx.createLinearGradient(
+  0,
+  0,
+  window.innerWidth,
+  window.innerHeight,
+);
+
+// Add three color stops
+gradient.addColorStop(0, "#023e8a");
+gradient.addColorStop(0.5, "#8ecae6");
+gradient.addColorStop(1, "#0096c7");
+
+// Set the fill style and draw a rectangle
+ctx.fillStyle = gradient;
+ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+</script>
+  </body>
+</html>
