@@ -27,16 +27,66 @@
     box-shadow: 0 0 10px #da25c1;
     border-radius: 50%;
   }
+
+  body.fullscreen {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  body.fullscreen h1 {
+    display: none;
+  }
+
+  body.fullscreen #drawing {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  body.fullscreen .tool-bar {
+    position: fixed;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    flex-direction: column;
+  }
+
+  body.fullscreen .tool-group {
+    flex-direction: column;
+  }
+
+  body.fullscreen .tool label {
+    display: none;
+  }
+
+  body.fullscreen input[type='range'] {
+    transform: rotate(-90deg);
+    margin: 5px 0;
+  }
+
+  body.fullscreen .brush-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+  }
+
+  body.fullscreen input[type="color"] {
+    margin-bottom: 60px;
+  }
+
+  body.fullscreen input[type="range"]::-webkit-slider-thumb {
+    margin-top: 0px;
+  }
 </style>
 </head>
 
 <body
-  class="font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-8 bg-blue-200 text-slate-800
+  class="fullscreen font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-8 bg-blue-200 text-slate-800
     transition-colors duration-300 ease-in-out">
   <div class="top-bar flex items-center gap-10">
     <h1 class="text-3xl font-bold">Canvas Drawing App</h1>
     <div class="tool-bar flex items-center justify-center gap-10 p-0 mb-8 flex-wrap">
-      <div class="tool-group flex items-center gap-10 rounded-md shadow-xl bg-gray-200 px-4 py-6
+      <div class="tool-group flex items-center gap-10 rounded-lg shadow-xl bg-gray-200 px-4 py-6
         transition-colors duration-300 ease-in-out">
         <div class="tool flex flex-col items-center gap-2">
           <label for="colorPicker" class="text-slate-800 text-md font-semibold text-center self-start">Color</label>
@@ -56,7 +106,7 @@
         </div>
       </div>
 
-      <div class="tool-group flex items-center gap-10 rounded-md shadow-xl bg-gray-200 px-4 py-6">
+      <div class="tool-group flex items-center gap-10 rounded-lg shadow-xl bg-gray-200 px-4 py-6">
         <button id="clearCanvas" title="Clear Canvas" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red"
             class="w-6 h-6">
