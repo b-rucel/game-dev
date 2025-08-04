@@ -4,6 +4,14 @@
 <title>Canvas - Drawing App</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {},
+    }
+  }
+</script>
 <script src="app.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
@@ -81,8 +89,7 @@
 </head>
 
 <body
-  class="font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-8 bg-blue-200 text-slate-800
-    dark:bg-slate-800 dark:text-white
+  class="font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-20 bg-blue-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200
     transition-colors duration-300 ease-in-out">
   <div class="top-bar flex items-center gap-10">
     <h1 class="text-3xl font-bold">Canvas Drawing App</h1>
@@ -103,14 +110,14 @@
             <input type="range" id="brushSize" name="brushSize" min="1" max="10" value="7"
               class="appearance-none w-[180px] h-[6px] rounded-[3px] outline-none cursor-pointer bg-[#da25c1]
               transition-all duration-300 ease-in-out" />
-            <span id="brushSizeValue" class="text-xs font-bold p-4 bg-gray-100 border border-gray-300 rounded-md min-w-[48px] text-center text-gray-700 shadow-inner">7</span>
+                        <span id="brushSizeValue" class="text-xs font-bold px-2 py-1.5 bg-gray-100 dark:bg-slate-600 border border-gray-300 dark:border-slate-500 rounded-md min-w-[30px] text-center text-gray-700 dark:text-gray-200 shadow-inner">7</span>
           </div>
         </div>
       </div>
 
       <div class="tool-group flex items-center gap-10 rounded-lg shadow-xl bg-gray-200 px-4 py-6
         dark:bg-slate-700">
-        <button id="clearCanvas" title="Clear Canvas" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
+        <button id="clearCanvas" title="Clear Canvas" class="p-3 bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 dark:hover:bg-slate-500 hover:border-slate-300 dark:hover:border-slate-400 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red"
             class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -118,7 +125,7 @@
           </svg>
         </button>
 
-        <button id="fullScreen" title="Full Screen" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
+        <button id="fullScreen" title="Full Screen" class="p-3 bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 dark:hover:bg-slate-500 hover:border-slate-300 dark:hover:border-slate-400 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="darkblue" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -126,7 +133,7 @@
           </svg>
         </button>
 
-        <button id="themeToggle" title="Toggle Theme" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
+        <button id="themeToggle" title="Toggle Theme" class="p-3 bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-500 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 dark:hover:bg-slate-500 hover:border-slate-300 dark:hover:border-slate-400 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="darkblue" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
