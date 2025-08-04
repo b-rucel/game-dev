@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Canvas - Drawing App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="app.js" defer></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-color-light: #d6e9f0;
+      --bg-color-dark: #1e2127;
+
+      --text-color-light: #2d3436;
+      --text-color-dark: #f4f7f8;
+    }
+
+    body {
+      transition: background-color 0.3s ease, color 0.3s ease;
+      background-color: var(--bg-color-light);
+      color: var(--text-color-light);
+    }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .tool-bar {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      padding: 0;
+      margin-bottom: 20px;
+    }
+
+    .tool-group {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      background-color: aliceblue;
+      padding: 10px 20px;
+      border-radius: 16px;
+      border: 1px solid #ccc;
+      transition: background-color 0.3s ease, color 0.3s ease;
+
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .tool {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tool label {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    #colorPicker {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 45px;
+      height: 45px;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    #colorPicker:hover {
+      transform: scale(1.2);
+      transition: transform 0.3s ease;
+    }
+
+    #colorPicker::-webkit-color-swatch {
+      border-radius: 50%;
+    }
+
+
+    /* */
+    #brushSizeValue {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 4px;
+      border: 1px solid #2d3436;
+      border-radius: 4px;
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+    }
+
+
+
+  </style>
+</head>
+<body class="font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-20 bg-[var(--bg-color-light)]">
+  <div class="top-bar ">
+    <h1 class="text-3xl font-bold">Canvas Drawing App</h1>
+    <div class="tool-bar">
+      <div class="tool-group">
+        <div class="tool">
+          <label for="colorPicker">Color</label>
+          <input type="color" id="colorPicker" name="color" value="#2d3436">
+        </div>
+
+        <div class="tool">
+          <label for="brushSize">Brush Size</label>
+          <div class="brush-slider">
+            <input type="range" id="brushSize" name="brushSize" min="1" max="10" value="7" />
+            <span id="brushSizeValue">7</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tool-group">
+        <button id="clearCanvas" title="Clear Canvas" class="p-2 hover:bg-gray-100 rounded-lg border border-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+          </svg>
+        </button>
+
+        <button id="fullScreen" title="Full Screen" class="p-2 hover:bg-gray-100 rounded-lg border border-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+          </svg>
+        </button>
+
+        <button id="themeToggle" title="Toggle Theme" class="p-2 hover:bg-gray-100 rounded-lg border border-gray-300">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <canvas id="drawing" width="500" height="350"></canvas>
+</body>
+</html>
