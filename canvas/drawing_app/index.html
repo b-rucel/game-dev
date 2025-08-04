@@ -1,323 +1,62 @@
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Canvas - Drawing App</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="app.js" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<meta charset="utf-8" />
+<title>Canvas - Drawing App</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="app.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * {
+    box-sizing: border-box;
+  }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  #colorPicker::-webkit-color-swatch {
+    border-radius: 50%;
+    border: none;
+  }
 
-    :root {
-      --bg-color-light: #d6e9f0;
-      --bg-color-dark: #1e2127;
-
-      --text-color-light: #2d3436;
-      --text-color-dark: #f4f7f8;
-    }
-
-    body {
-      transition:
-        background-color 0.3s ease,
-        color 0.3s ease;
-      background-color: var(--bg-color-light);
-      color: var(--text-color-light);
-    }
-
-    .top-bar {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-    }
-
-    .tool-bar {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      padding: 0;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .tool-group {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      background-color: aliceblue;
-      padding: 15px 25px;
-      border-radius: 16px;
-      border: 1px solid #e0e7ff;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .tool-group:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-      transform: translateY(-2px);
-    }
-
-    .tool {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      min-width: fit-content;
-    }
-
-    .tool label {
-      font-size: 12px;
-      font-weight: 600;
-      text-align: center;
-      color: #374151;
-      letter-spacing: 0.5px;
-    }
-
-    #colorPicker {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 50px;
-      height: 50px;
-      border: 3px solid #fff;
-      border-radius: 50%;
-      cursor: pointer;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
-    }
-
-    #colorPicker:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    }
-
-    #colorPicker::-webkit-color-swatch {
-      border-radius: 50%;
-      border: none;
-    }
-
-    #colorPicker::-moz-color-swatch {
-      border-radius: 50%;
-      border: none;
-    }
-
-    .brush-slider {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 120px;
-    }
-
-    #brushSize {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 80px;
-      height: 6px;
-      border-radius: 3px;
-      background: linear-gradient(to right, #e5e7eb 0%, #3b82f6 0%);
-      outline: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    #brushSize::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #3b82f6;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    #brushSize::-webkit-slider-thumb:hover {
-      transform: scale(1.2);
-      box-shadow: 0 3px 10px rgba(59, 130, 246, 0.6);
-    }
-
-    #brushSize::-moz-range-thumb {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: #3b82f6;
-      cursor: pointer;
-      border: none;
-      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
-    }
-
-    #brushSizeValue {
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px 8px;
-      background: #f3f4f6;
-      border: 1px solid #d1d5db;
-      border-radius: 6px;
-      min-width: 30px;
-      text-align: center;
-      color: #374151;
-      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    .toolbar-button {
-      padding: 12px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .toolbar-button:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .toolbar-button:active {
-      transform: translateY(0);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Dark theme styles */
-    body.dark-theme .tool-group {
-      background-color: #374151;
-      border-color: #4b5563;
-      color: #f9fafb;
-    }
-
-    body.dark-theme .tool label {
-      color: #e5e7eb;
-    }
-
-    body.dark-theme #brushSizeValue {
-      background: #4b5563;
-      border-color: #6b7280;
-      color: #f9fafb;
-    }
-
-    body.dark-theme .toolbar-button {
-      background: #4b5563;
-      border-color: #6b7280;
-      color: #f9fafb;
-    }
-
-    body.dark-theme .toolbar-button:hover {
-      background: #374151;
-      border-color: #9ca3af;
-    }
-
-    body.dark-theme #brushSize {
-      background: linear-gradient(to right, #6b7280 0%, #3b82f6 0%);
-    }
-
-    #drawing {
-      background-color: #f9fafb;
-      width: 95vw;
-      border-radius: 16px;
-    }
-
-    /* Responsive design */
-    @media (max-width: 768px) {
-      .top-bar {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-      }
-
-      .tool-bar {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-      }
-
-      .tool-group {
-        padding: 12px 18px;
-        gap: 15px;
-      }
-
-      #colorPicker {
-        width: 40px;
-        height: 40px;
-      }
-
-      .brush-slider {
-        min-width: 100px;
-      }
-
-      #brushSize {
-        width: 70px;
-      }
-
-      .toolbar-button {
-        padding: 10px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 10px;
-      }
-
-      .top-bar {
-        gap: 15px;
-      }
-
-      .tool-bar {
-        gap: 10px;
-      }
-
-      .tool-group {
-        padding: 10px 15px;
-        gap: 12px;
-      }
-
-      .tool-group:nth-child(2) {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-        text-align: center;
-      }
-    }
-  </style>
-</head></text>
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -3px;
+    background: #da25c1;
+    border: 3px solid #fefefe;
+    box-shadow: 0 0 10px #da25c1;
+    border-radius: 50%;
+  }
+</style>
+</head>
 
 <body
-  class="font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-20 bg-[var(--bg-color-light)]">
-  <div class="top-bar">
+  class="font-[Poppins] flex flex-col w-screen h-screen items-center align-center m-0 p-20 bg-blue-200 text-slate-800
+    transition-colors duration-300 ease-in-out">
+  <div class="top-bar flex items-center gap-10">
     <h1 class="text-3xl font-bold">Canvas Drawing App</h1>
-    <div class="tool-bar">
-      <div class="tool-group">
-        <div class="tool">
-          <label for="colorPicker">Color</label>
-          <input type="color" id="colorPicker" name="color" value="#2d3436" />
+    <div class="tool-bar flex items-center justify-center gap-10 p-0 mb-20 flex-wrap">
+      <div class="tool-group w-[300px] flex items-center gap-10 rounded-md shadow-xl bg-gray-200 px-4 py-6
+        transition-colors duration-300 ease-in-out">
+        <div class="tool flex flex-col items-center gap-2">
+          <label for="colorPicker" class="text-slate-800 text-md font-semibold text-center self-start">Color</label>
+          <input type="color" id="colorPicker" name="color" value="#2d3436"
+            class="appearance-none w-[50px] h-[50px] rounded-full border-3 border-white cursor-pointer overflow-hidden shadow-md
+            transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-lg" />
         </div>
 
-        <div class="tool">
-          <label for="brushSize">Brush Size</label>
-          <div class="brush-slider">
-            <input type="range" id="brushSize" name="brushSize" min="1" max="10" value="7" />
-            <span id="brushSizeValue">7</span>
+        <div class="tool flex flex-col items-center gap-2">
+          <label for="brushSize" class="text-slate-800 text-md font-semibold text-center self-start">Brush Size</label>
+          <div class="brush-slider flex items-center gap-10">
+            <input type="range" id="brushSize" name="brushSize" min="1" max="10" value="7" class="appearance-none w-[80px] h-[6px] rounded-[3px] outline-none cursor-pointer bg-[#da25c1]
+              transition-all duration-300 ease-in-out" />
+            <span id="brushSizeValue" class="text-xs font-bold p-4 bg-gray-100 border border-gray-300 rounded-md min-w-[48px] text-center text-gray-700 shadow-inner">7</span>
           </div>
         </div>
       </div>
 
-      <div class="tool-group">
-        <button id="clearCanvas" title="Clear Canvas" class="toolbar-button">
+      <div class="tool-group flex items-center gap-10 rounded-md shadow-xl bg-gray-200 px-4 py-6">
+        <button id="clearCanvas" title="Clear Canvas" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red"
             class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -325,7 +64,7 @@
           </svg>
         </button>
 
-        <button id="fullScreen" title="Full Screen" class="toolbar-button">
+        <button id="fullScreen" title="Full Screen" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -333,7 +72,7 @@
           </svg>
         </button>
 
-        <button id="themeToggle" title="Toggle Theme" class="toolbar-button">
+        <button id="themeToggle" title="Toggle Theme" class="p-3 bg-slate-50 border border-slate-200 rounded-lg cursor-pointer transition-all duration-300 ease-in-out flex items-center justify-center shadow-sm hover:bg-slate-100 hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-sm">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
             stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round"
@@ -343,7 +82,7 @@
       </div>
     </div>
   </div>
-  <canvas id="drawing"></canvas>
+  <canvas id="drawing" class="bg-slate-100 w-[95vw] rounded-xl"></canvas>
 </body>
 
 </html>
