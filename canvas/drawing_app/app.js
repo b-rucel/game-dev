@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // Update the icon and theme based on current state
   const updateThemeUI = (isDark) => {
     if (isDark) {
-      moonIcon.setAttribute('fill', 'currentColor');
+      // moonIcon.setAttribute('fill', 'currentColor');
       document.documentElement.classList.add('dark');
       localStorage.setItem('theme', 'dark');
     } else {
-      moonIcon.setAttribute('fill', 'none');
+      // moonIcon.setAttribute('fill', 'none');
       document.documentElement.classList.remove('dark');
       localStorage.setItem('theme', 'light');
     }
@@ -32,6 +32,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const isDark = !document.documentElement.classList.contains('dark');
     updateThemeUI(isDark);
   });
+
+
+
+  const fullScreenButton = document.getElementById('fullScreen');
+
+  const toggleFullScreen = () => {
+    if (document.fullscreenElement) {
+      document.body.classList.remove('fullscreen');
+      document.exitFullscreen();
+    } else {
+      document.body.classList.add('fullscreen');
+      document.documentElement.requestFullscreen();
+    }
+  }
+
+  fullScreenButton.addEventListener('click', () => {
+    // document.body.classList.toggle('fullscreen');
+    toggleFullScreen()
+  });
+
 
 
 
