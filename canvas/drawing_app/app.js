@@ -1,9 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log('DOMContentLoaded');
 
-
-
-
   // Check for saved theme preference, otherwise check system preference
   const savedTheme = localStorage.getItem('theme');
   const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -56,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 
-  const canvas = this.documentElement.getElementById('#drawing')
+  const canvas = document.getElementById('drawing');
   const ctx = canvas.getContext('2d');
 
   const colorPicker = document.getElementById('colorPicker');
@@ -70,8 +67,16 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const brushSizeValue = document.getElementById('brushSizeValue');
-  const clearButton = document.getElementById('clearButton');
+  const clearButton = document.getElementById('clearCanvas');
 
+  // Clear canvas event listener
+  clearButton.addEventListener("click", () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  });
+
+  // Initialize drawing variables
+  let currentColor = "#2d3436";
+  let currentBrushSize = 7;
   let isDrawing = false;
   let lastX = 0;
   let lastY = 0;
@@ -84,16 +89,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const resizeCanvas = () => {
-    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
-    ctx.putImageData(imageData, 0, 0);
+    canvas.height = window.innerHeight * 0.7; // Set a reasonable height
     setContextProperties();
-    // canvas.width = window.innerWidth;
-    // canvas.height = window.innerHeight;
-    // ctx.fillStyle = '#ffffff';
-    // ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
+  };
 
   resizeCanvas();
 
@@ -108,25 +107,25 @@ document.addEventListener("DOMContentLoaded", function () {
     ctx.stroke();
     lastX = e.offsetX;
     lastY = e.offsetY;
-  }
+  };
 
-  canvas.addEventListener('mousedown', (e) => {
+  canvas.addEventListener("mousedown", (e) => {
     isDrawing = true;
     lastX = e.offsetX;
     lastY = e.offsetY;
   });
 
-  canvas.addEventListener('mouseup', () => {
+  canvas.addEventListener("mouseup", () => {
     isDrawing = false;
   });
 
-  canvas.addEventListener('mousemove', draw);
+  canvas.addEventListener("mousemove", draw);
 
   // Handle window resize
   window.addEventListener("resize", () => {
     // Re-initialize canvas to match new display size
     // Note: This will clear the canvas
     // initCanvas();
-    console.log('Window resized');
+    console.log("Window resized");
   });
 });
