@@ -39,16 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const toggleFullScreen = () => {
     if (document.fullscreenElement) {
-      // document.body.classList.remove('fullscreen');
       document.exitFullscreen();
     } else {
-      // document.body.classList.add('fullscreen');
-      document.documentElement.requestFullscreen();
+      document.body.requestFullscreen();
     }
   }
 
   fullScreenButton.addEventListener('click', () => {
-    // document.body.classList.toggle('fullscreen');
     toggleFullScreen()
   });
 
@@ -64,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const brushSizeSlider = document.getElementById('brushSize');
   brushSizeSlider.addEventListener('input', (e) => {
     currentBrushSize = e.target.value;
+    brushSizeValue.textContent = currentBrushSize;
   });
 
   const brushSizeValue = document.getElementById('brushSizeValue');
