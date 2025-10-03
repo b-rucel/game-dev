@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Sky with Clouds Background</title>
+        <style>
+            body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                margin: 0;
+                padding: 0px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="shapes" width="500" height="350"></canvas>
+        <script>
+            const canvas = document.getElementById("shapes");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            // Create sky gradient
+            const skyGradient = ctx.createLinearGradient(
+                0,
+                0,
+                0,
+                canvas.height,
+            );
+            skyGradient.addColorStop(0, "#87CEEB"); // Light blue at top
+            // skyGradient.addColorStop(1, "#1E90FF"); // Darker blue at bottom
+            skyGradient.addColorStop(1, "#56b1f4"); // Darker blue at bottom
+
+            // Fill background with gradient
+            ctx.fillStyle = skyGradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Function to draw a cloud
+            function drawCloud(x, y, size) {
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+
+                // Draw multiple overlapping circles to create cloud shape
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.arc(x + size, y, size * 0.8, 0, Math.PI * 2);
+                ctx.arc(x - size, y, size * 0.8, 0, Math.PI * 2);
+                ctx.arc(x + size / 2, y - size / 2, size * 0.7, 0, Math.PI * 2);
+                ctx.arc(x - size / 2, y - size / 2, size * 0.7, 0, Math.PI * 2);
+
+                ctx.fill();
+            }
+
+            // Draw multiple clouds at different positions
+            drawCloud(canvas.width * 0.2, canvas.height * 0.2, 40);
+            drawCloud(canvas.width * 0.5, canvas.height * 0.3, 50);
+            drawCloud(canvas.width * 0.8, canvas.height * 0.15, 45);
+            drawCloud(canvas.width * 0.3, canvas.height * 0.4, 35);
+            drawCloud(canvas.width * 0.7, canvas.height * 0.5, 30);
+        </script>
+    </body>
+</html>
