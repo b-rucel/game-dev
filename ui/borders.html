@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fantasy UI Border Demo</title>
+  <style>
+    body {
+      background: #1a1a1a;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .border-demo {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      margin: 2rem;
+    }
+
+    .border-piece {
+      position: absolute;
+      width: 48px;
+      height: 48px;
+      background-image: url('fantasy-ui-borders.svg');
+      background-repeat: no-repeat;
+      transition: transform 0.3s;
+    }
+
+    .border-piece:hover {
+      transform: scale(1.2);
+      filter: brightness(1.5);
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    button {
+      background: #333;
+      color: #fff;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .info {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fantasy UI Border Builder</h1>
+  
+  <div class="controls">
+    <button onclick="changeStyle('panel')">Simple</button>
+    <button onclick="changeStyle('panel_border')">Ornate</button>
+    <button onclick="changeStyle('panel_transparent_border')">Transparent</button>
+    <button onclick="randomize()">Randomize</button>
+  </div>
+
+  <div class="border-demo" id="borderDemo"></div>
+
+  <div class="info">
+    <p>Click buttons to change border styles. Hover over border pieces to see them highlight.</p>
+    <p>Each border piece is a sprite from a larger SVG sprite sheet.</p>
+  </div>
+
+  <script>
+    const borderPieces = {
+      topLeft: '031',
+      top: '030',
+      topRight: '029',
+      left: '023',
+      right: '021', 
+      bottomLeft: '015',
+      bottom: '014',
+      bottomRight: '013'
+    };
+
+    let currentStyle = 'panel';
+
+    function createBorderPiece(type, position) {
+      const piece = document.createElement('div');
+      piece.className = 'border-piece';
+      
+      // Calculate sprite position based on ID
+      const id = borderPieces[type];
+      const x = -(64 + (id % 8) * 62);
+      const y = -(64 + Math.floor(id / 8) * 62);
+      
+      piece.style.backgroundPosition = `${x}px ${y}px`;
+
+      // Position the piece
+      switch(position) {
+        case 'topLeft': piece.style.top = '0'; piece.style.left = '0'; break;
+        case 'top': piece.style.top = '0'; piece.style.left = '50%'; piece.style.transform = 'translateX(-50%)'; break;
+        case 'topRight': piece.style.top = '0'; piece.style.right = '0'; break;
+        case 'left': piece.style.left = '0'; piece.style.top = '50%'; piece.style.transform = 'translateY(-50%)'; break;
+        case 'right': piece.style.right = '0'; piece.style.top = '50%'; piece.style.transform = 'translateY(-50%)'; break;
+        case 'bottomLeft': piece.style.bottom = '0'; piece.style.left = '0'; break;
+        case 'bottom': piece.style.bottom = '0'; piece.style.left = '50%'; piece.style.transform = 'translateX(-50%)'; break;
+        case 'bottomRight': piece.style.bottom = '0'; piece.style.right = '0'; break;
+      }
+
+      return piece;
+    }
+
+    function updateBorder() {
+      const demo = document.getElementById('borderDemo');
+      demo.innerHTML = '';
+
+      Object.keys(borderPieces).forEach(type => {
+        const piece = createBorderPiece(type, type);
+        demo.appendChild(piece);
+      });
+    }
+
+    function changeStyle(style) {
+      currentStyle = style;
+      const pieces = document.querySelectorAll('.border-piece');
+      pieces.forEach(piece => {
+        const pos = piece.style.backgroundPosition.split(' ');
+        const x = parseInt(pos[0]);
+        const y = parseInt(pos[1]);
+        
+        if(style === 'panel_border') {
+          piece.style.backgroundPosition = `${x - 500}px ${y}px`;
+        } else if(style === 'panel_transparent_border') {
+          piece.style.backgroundPosition = `${x - 1000}px ${y}px`;
+        }
+      });
+    }
+
+    function randomize() {
+      const styles = ['panel', 'panel_border', 'panel_transparent_border'];
+      changeStyle(styles[Math.floor(Math.random() * styles.length)]);
+    }
+
+    // Initial setup
+    updateBorder();
+  </script>
+</body>
+</html>

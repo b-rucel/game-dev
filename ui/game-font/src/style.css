@@ -1,0 +1,26 @@
+
+@font-face {
+  font-family: "scandia";
+  font-weight: 400;
+  src: url("assets/fonts/scandia.otf");
+}
+
+@font-face {
+  font-family: "scandia";
+  font-weight: bold;
+  src: url("assets/fonts/scandia-bold.otf");
+}
+
+@font-face {
+  font-family: "04B_03";
+  src: url("assets/fonts/04B_03.TTF");
+}
+
+body {
+  font-family: "04B_03", serif;
+}
+
+.scandia {
+  font-family: "scandia", sans-serif;
+  font-weight: 400;
+}
